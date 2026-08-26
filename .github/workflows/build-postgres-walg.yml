@@ -8,7 +8,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
   packages: write
 
 env:
@@ -36,7 +36,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Set up QEMU (для сборки под arm64 и amd64)
+      - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
 
       - name: Set up Docker Buildx
@@ -60,3 +60,17 @@ jobs:
           build-args: |
             PG_VERSION=${{ matrix.pg_version }}
             WALG_VERSION=${{ env.WALG_VERSION }}
+          cache-from: type=gha,scope=${{ matrix.pg_version }}
+          cache-to: type=gha,mode=max,scope=${{ matrix.pg_version }}
+
+  cleanup-untagged:
+    needs: build-and-push
+    runs-on: ubuntu-latest
+    steps:
+      - name: Delete untagged images
+        uses: actions/delete-package-versions@v5
+        with:
+          package-name: 'postgres-walg'
+          package-type: 'container'
+          untagged-only: 'true'
+          min-versions-to-keep: 0
