@@ -36,7 +36,7 @@ RUN set -eux; \
     curl -fsSL "$URL" -o /tmp/wal-g.tar.gz; \
     \
     tar -xzf /tmp/wal-g.tar.gz -C /tmp/; \
-    mv /tmp/wal-g-pg-ubuntu-20.04-${WALG_ARCH} /usr/local/bin/wal-g; \
+    mv /tmp/wal-g-pg-* /usr/local/bin/wal-g; \
     chmod +x /usr/local/bin/wal-g; \
     rm -rf /tmp/*; \
     \
