@@ -63,15 +63,3 @@ jobs:
             WALG_VERSION=${{ env.WALG_VERSION }}
           cache-from: type=gha,scope=${{ matrix.pg_version }}
           cache-to: type=gha,mode=max,scope=${{ matrix.pg_version }}
-
-  cleanup-untagged:
-    needs: build-and-push
-    runs-on: ubuntu-latest
-    steps:
-      - name: Delete untagged images
-        uses: actions/delete-package-versions@v5
-        with:
-          package-name: 'postgres-walg'
-          package-type: 'container'
-          delete-only-untagged-versions: 'true'
-          min-versions-to-keep: 0
