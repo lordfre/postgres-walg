@@ -30,7 +30,7 @@ jobs:
           - '18'
           - '18-alpine'
           - '18-alpine3.23'
-          - '18-alpine3.34'
+          - '18-alpine3.24'
 
     steps:
       - name: Checkout repository
