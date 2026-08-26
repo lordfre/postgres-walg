@@ -63,3 +63,16 @@ jobs:
             WALG_VERSION=${{ env.WALG_VERSION }}
           cache-from: type=gha,scope=${{ matrix.pg_version }}
           cache-to: type=gha,mode=max,scope=${{ matrix.pg_version }}
+
+  cleanup-untagged:
+    needs: build-and-push
+    runs-on: ubuntu-latest
+    steps:
+      - name: Delete untagged images older than 1 day
+        uses: snok/container-retention-policy@v3
+        with:
+          image-names: postgres-walg
+          cut-off: 1d
+          account-type: personal
+          untagged-only: true
+          token: ${{ secrets.GITHUB_TOKEN }}
