@@ -50,11 +50,12 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build and push
-        uses: docker/build-push-action@v5
+        uses: docker/build-push-action@v6
         with:
           context: .
           push: true
           pull: true
+          provenance: false
           platforms: linux/amd64,linux/arm64
           tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ matrix.pg_version }}
           build-args: |
@@ -72,5 +73,5 @@ jobs:
         with:
           package-name: 'postgres-walg'
           package-type: 'container'
-          untagged-only: 'true'
+          delete-only-untagged-versions: 'true'
           min-versions-to-keep: 0
