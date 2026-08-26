@@ -1,4 +1,4 @@
-ARG PG_VERSION=18
+ARG PG_VERSION=16
 FROM postgres:${PG_VERSION}
 
 ARG WALG_VERSION=v3.0.9
@@ -33,7 +33,8 @@ RUN set -eux; \
     esac; \
     \
     URL="https://github.com/wal-g/wal-g/releases/download/${WALG_VERSION}/wal-g-pg-ubuntu-20.04-${WALG_ARCH}.tar.gz"; \
-    curl -sSL "$URL" -o /tmp/wal-g.tar.gz; \
+    curl -fsSL "$URL" -o /tmp/wal-g.tar.gz; \
+    \
     tar -xzf /tmp/wal-g.tar.gz -C /tmp/; \
     mv /tmp/wal-g-pg-ubuntu-20.04-${WALG_ARCH} /usr/local/bin/wal-g; \
     chmod +x /usr/local/bin/wal-g; \
