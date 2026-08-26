@@ -32,7 +32,7 @@ RUN set -eux; \
         *) echo "Unsupported architecture: $ARCH"; exit 1 ;; \
     esac; \
     \
-    URL="https://github.com/wal-g/wal-g/releases/download/${WALG_VERSION}/wal-g-pg-ubuntu-20.04-${WALG_ARCH}.tar.gz"; \
+    URL="https://github.com/wal-g/wal-g/releases/download/${WALG_VERSION}/wal-g-pg-22.04-${WALG_ARCH}.tar.gz"; \
     curl -fsSL "$URL" -o /tmp/wal-g.tar.gz; \
     \
     tar -xzf /tmp/wal-g.tar.gz -C /tmp/; \
